@@ -79,3 +79,12 @@ def parameter_test(x_train, x_test, y_train, y_test, max_depth=False):
     plt.savefig(f'plots/{title}.png')
     plt.show()
 
+
+# Load MATLAB file
+mat_data = scipy.io.loadmat('emails.mat')
+
+# Extract data
+# I'll work with pandas dataframe
+X = pd.DataFrame.sparse.from_spmatrix(mat_data['X'])
+X = X.T #attributes are now columns and instances are rows
+Y = mat_data['Y'][0]
