@@ -88,3 +88,17 @@ mat_data = scipy.io.loadmat('emails.mat')
 X = pd.DataFrame.sparse.from_spmatrix(mat_data['X'])
 X = X.T #attributes are now columns and instances are rows
 Y = mat_data['Y'][0]
+
+# Plot how data are distributed
+pie_plot(Y, 'data distribution')
+
+#1. Split train and test
+x_train, x_test, y_train, y_test = train_test_split(X, Y, random_state=4)
+
+#2. Create and fit classifier
+clf = RandomForestClassifier(random_state=4)
+clf.fit(x_train, y_train)
+
+#3. Evaluate
+y_pred = clf.predict(x_test)
+evaluation(y_test, y_pred, 'model evaluation')
